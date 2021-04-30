@@ -4,10 +4,10 @@
       >Skip to content</cv-skip-to-content
     >
 
-    <cv-header-name href="/" prefix="IBM">Carbon Tutorial</cv-header-name>
+    <cv-header-name to="/" prefix="IBM">Carbon Tutorial</cv-header-name>
 
     <cv-header-nav>
-      <cv-header-menu-item href="/repos">Repositories</cv-header-menu-item>
+      <cv-header-menu-item to="/repos">Repositories</cv-header-menu-item>
     </cv-header-nav>
 
     <template slot="header-global">
@@ -19,8 +19,8 @@
       </cv-header-global-action>
       <cv-header-global-action aria-label="App switcher">
         <app-switcher-20 />
-      </cv-header-global-action> </template></cv-header
-></template>
+      </cv-header-global-action>
+    </template>
   </cv-header>
 </template>
 
