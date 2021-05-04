@@ -25,7 +25,79 @@
                     tools and resources, human interface guidelines, and a
                     vibrant community of contributors.
                   </p>
-                  <cv-button>Learn more</cv-button>
+
+                  <cv-modal
+                    :visible="modalVisible"
+                    :close-aria-label="closeAriaLabel"
+                    :size="size"
+                    :primary-button-disabled="primaryButtonDisabled"
+                    @modal-shown="actionShown"
+                    @modal-hidden="actionHidden"
+                    @modal-hide-request="actionHideRequest"
+                    @after-modal-hidden="actionAfterHidden"
+                    :auto-hide-off="autoHideOff"
+                  >
+                    <!-- <template v-if="use_label" slot="label"
+                      >Label of modal</template
+                    > -->
+                    <template v-if="use_title" slot="title"
+                      >Login</template
+                    >
+                    <template v-if="use_content" slot="content">
+                      <!-- <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing
+                        elit, seed do eiusmod tempor incididunt ut labore et
+                        dolore magna aliqua. Ut enim ad minim veniam, quis
+                        nostrud exercitation ullamco laboris nisi ut aliquip ex
+                        ea commodo consequat.
+                      </p> -->
+
+                      <cv-form @submit.prevent="actionSubmit">
+                        <cv-text-input
+                          :light="light"
+                          :label="usernameLabel"
+                          :disabled="disabled"
+                          :placeholder="usernamePlaceholder"
+                          v-model="username"
+                          class="mg-bottom-2"
+                          required
+                        >
+                          <template
+                            v-if="use_helperTextSlot"
+                            slot="helper-text"
+                            >{{ usernameHelper }}</template
+                          >
+                        </cv-text-input>
+                        <cv-text-input
+                          :light="light"
+                          :label="passwordLabel"
+                          :placeholder="passwordPlaceholder"
+                          v-model="password"
+                          class="mg-bottom-2"
+                          required
+                        >
+                          <template
+                            v-if="use_helperTextSlot"
+                            slot="helper-text"
+                            >{{ passwordHelper }}</template
+                          >
+                        </cv-text-input>
+                        <cv-button :icon="Notification20">
+                          Login
+                        </cv-button>
+                      </cv-form>
+                    </template>
+                    <!-- <template v-if="use_secondaryButton" slot="secondary-button"
+                      >secondary</template
+                    >
+                    <template v-if="use_primaryButton" slot="primary-button"
+                      >primary</template
+                    > -->
+                  </cv-modal>
+
+                  <cv-button @click="modalVisible = true"
+                    >Open login modal</cv-button
+                  >
                 </div>
                 <div class="bx--col-md-4 bx--offset-lg-1 bx--col-lg-8">
                   <img
@@ -70,6 +142,72 @@
     </div>
   </div>
 </template>
+
+<script>
+import Notification20 from '@carbon/icons-vue/es/notification/20';
+
+export default {
+  name: 'LandingPage',
+  data() {
+    // eslint-disable-next-line no-console
+    console.log('Notification20', Notification20); ////
+    return {
+      closeAriaLabel: 'Close',
+      use_label: true,
+      use_title: true,
+      use_content: true,
+      size: 'default',
+      use_secondaryButton: true,
+      use_primaryButton: true,
+      primaryButtonDisabled: false,
+      autoHideOff: false,
+      modalVisible: false,
+      light: false,
+      usernameLabel: 'Username',
+      disabled: false,
+      passwordVisible: false,
+      passwordHideLabel: 'Hide password',
+      passwordShowLabel: 'Show password',
+      usernamePlaceholder: 'Username',
+      use_helperTextSlot: true,
+      use_invalidMessageSlot: false,
+      value: 'value',
+      usernameHelper: 'Please input your username',
+      invalidMessage: 'Invalid message',
+      username: '',
+      password: '',
+      passwordLabel: 'Password',
+      passwordPlaceholder: 'Password',
+      passwordHelper: 'Please input your password',
+      Notification20: Notification20
+    };
+  },
+  methods: {
+    actionShown() {
+      // eslint-disable-next-line no-console
+      console.log('actionShown'); ////
+    },
+    actionHidden() {
+      // eslint-disable-next-line no-console
+      console.log('actionHidden'); ////
+      this.modalVisible = false;
+    },
+    actionHideRequest() {
+      // eslint-disable-next-line no-console
+      console.log('actionHideRequest'); ////
+    },
+    actionAfterHidden() {
+      // eslint-disable-next-line no-console
+      console.log('actionAfterHidden'); ////
+    },
+    actionSubmit() {
+      // eslint-disable-next-line no-console
+      console.log('actionSubmit', this.username, this.password); ////
+      this.modalVisible = false;
+    }
+  }
+};
+</script>
 
 <style lang="scss">
 @import '../../styles/carbon-utils';
